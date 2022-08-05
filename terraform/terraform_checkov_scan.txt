@@ -1,0 +1,491 @@
+
+       _               _              
+   ___| |__   ___  ___| | _______   __
+  / __| '_ \ / _ \/ __| |/ / _ \ \ / /
+ | (__| | | |  __/ (__|   < (_) \ V / 
+  \___|_| |_|\___|\___|_|\_\___/ \_/  
+                                      
+By bridgecrew.io | version: 2.1.97 
+
+terraform scan results:
+
+Passed checks: 9, Failed checks: 20, Skipped checks: 0
+
+Check: CKV_AWS_41: "Ensure no hard coded AWS access key and secret key exists in provider"
+	PASSED for resource: aws.default
+	File: /main.tf:1-3
+Check: CKV_AWS_130: "Ensure VPC subnets do not assign public IP by default"
+	PASSED for resource: aws_subnet.aws_subnet1
+	File: /main.tf:24-28
+Check: CKV_AWS_130: "Ensure VPC subnets do not assign public IP by default"
+	PASSED for resource: aws_subnet.aws_subnet2
+	File: /main.tf:30-34
+Check: CKV_AWS_46: "Ensure no hard-coded secrets exist in EC2 user data"
+	PASSED for resource: aws_instance.aws_instance
+	File: /main.tf:62-89
+Check: CKV_AWS_133: "Ensure that RDS instances has backup policy"
+	PASSED for resource: aws_db_instance.aws_db_instance
+	File: /main.tf:96-109
+Check: CKV_AWS_211: "Ensure RDS uses a modern CaCert"
+	PASSED for resource: aws_db_instance.aws_db_instance
+	File: /main.tf:96-109
+Check: CKV2_AWS_5: "Ensure that Security Groups are attached to another resource"
+	PASSED for resource: aws_security_group.aws_security_group
+	File: /main.tf:42-60
+Check: CKV2_AWS_35: "AWS NAT Gateways should be utilized for the default route"
+	PASSED for resource: aws_route.aws_route
+	File: /main.tf:18-22
+Check: CKV2_AWS_23: "Route53 A Record has Attached Resource"
+	PASSED for resource: aws_route53_record.www
+	File: /main.tf:115-121
+Check: CKV_AWS_260: "Ensure no security groups allow ingress from 0.0.0.0:0 to port 80"
+	FAILED for resource: aws_security_group.aws_security_group
+	File: /main.tf:42-60
+
+		42 | resource "aws_security_group" "aws_security_group" {
+		43 |   name        = "main"
+		44 |   description = "main"
+		45 |   vpc_id      = "${aws_vpc.aws_vpc.id}"
+		46 | 
+		47 |   ingress {
+		48 |     from_port   = 0
+		49 |     to_port     = 0
+		50 |     protocol    = "-1"
+		51 |     cidr_blocks = ["0.0.0.0/0"]
+		52 |   }
+		53 | 
+		54 |   egress {
+		55 |     from_port       = 0
+		56 |     to_port         = 0
+		57 |     protocol        = "-1"
+		58 |     cidr_blocks     = ["0.0.0.0/0"]
+		59 |   }
+		60 | }
+
+Check: CKV_AWS_24: "Ensure no security groups allow ingress from 0.0.0.0:0 to port 22"
+	FAILED for resource: aws_security_group.aws_security_group
+	File: /main.tf:42-60
+
+		42 | resource "aws_security_group" "aws_security_group" {
+		43 |   name        = "main"
+		44 |   description = "main"
+		45 |   vpc_id      = "${aws_vpc.aws_vpc.id}"
+		46 | 
+		47 |   ingress {
+		48 |     from_port   = 0
+		49 |     to_port     = 0
+		50 |     protocol    = "-1"
+		51 |     cidr_blocks = ["0.0.0.0/0"]
+		52 |   }
+		53 | 
+		54 |   egress {
+		55 |     from_port       = 0
+		56 |     to_port         = 0
+		57 |     protocol        = "-1"
+		58 |     cidr_blocks     = ["0.0.0.0/0"]
+		59 |   }
+		60 | }
+
+Check: CKV_AWS_23: "Ensure every security groups rule has a description"
+	FAILED for resource: aws_security_group.aws_security_group
+	File: /main.tf:42-60
+
+		42 | resource "aws_security_group" "aws_security_group" {
+		43 |   name        = "main"
+		44 |   description = "main"
+		45 |   vpc_id      = "${aws_vpc.aws_vpc.id}"
+		46 | 
+		47 |   ingress {
+		48 |     from_port   = 0
+		49 |     to_port     = 0
+		50 |     protocol    = "-1"
+		51 |     cidr_blocks = ["0.0.0.0/0"]
+		52 |   }
+		53 | 
+		54 |   egress {
+		55 |     from_port       = 0
+		56 |     to_port         = 0
+		57 |     protocol        = "-1"
+		58 |     cidr_blocks     = ["0.0.0.0/0"]
+		59 |   }
+		60 | }
+
+Check: CKV_AWS_25: "Ensure no security groups allow ingress from 0.0.0.0:0 to port 3389"
+	FAILED for resource: aws_security_group.aws_security_group
+	File: /main.tf:42-60
+
+		42 | resource "aws_security_group" "aws_security_group" {
+		43 |   name        = "main"
+		44 |   description = "main"
+		45 |   vpc_id      = "${aws_vpc.aws_vpc.id}"
+		46 | 
+		47 |   ingress {
+		48 |     from_port   = 0
+		49 |     to_port     = 0
+		50 |     protocol    = "-1"
+		51 |     cidr_blocks = ["0.0.0.0/0"]
+		52 |   }
+		53 | 
+		54 |   egress {
+		55 |     from_port       = 0
+		56 |     to_port         = 0
+		57 |     protocol        = "-1"
+		58 |     cidr_blocks     = ["0.0.0.0/0"]
+		59 |   }
+		60 | }
+
+Check: CKV_AWS_79: "Ensure Instance Metadata Service Version 1 is not enabled"
+	FAILED for resource: aws_instance.aws_instance
+	File: /main.tf:62-89
+
+		62 | resource "aws_instance" "aws_instance" {
+		63 |     depends_on = ["aws_db_instance.aws_db_instance"]
+		64 |     subnet_id     = "${aws_subnet.aws_subnet1.id}"
+		65 |   ami           = "ami-2f442839"
+		66 |   instance_type = "t2.micro"
+		67 |   associate_public_ip_address = true
+		68 |   vpc_security_group_ids = ["${aws_security_group.aws_security_group.id}"]
+		69 |   key_name ="${aws_key_pair.aws_key_pair.id}"
+		70 |   provisioner "remote-exec" {
+		71 |     inline = [
+		72 |       "sudo apt-get -y install postgresql postgresql-contrib",
+		73 |       "echo \"${element(split(":", aws_db_instance.aws_db_instance.endpoint), 0)}:${element(split(":", aws_db_instance.aws_db_instance.endpoint), 1)}:appdatabase:DBUSER:DBPASSWORD\" >> /home/ubuntu/.pgpass",
+		74 |       "chmod 600 /home/ubuntu/.pgpass",
+		75 |       "psql -h ${element(split(":", aws_db_instance.aws_db_instance.endpoint), 0)} -p ${element(split(":", aws_db_instance.aws_db_instance.endpoint), 1)} -U DBUSER -d appdatabase -c \"CREATE TABLE app (data VARCHAR(50));\"",
+		76 |       "psql -h ${element(split(":", aws_db_instance.aws_db_instance.endpoint), 0)} -p ${element(split(":", aws_db_instance.aws_db_instance.endpoint), 1)} -U DBUSER -d appdatabase -c \"INSERT INTO app (data) VALUES ('CHANGEME');\"",
+		77 |       "(echo audit && echo audit) | sudo passwd", # Allow auditors
+		78 |     ]
+		79 | 
+		80 |     connection {
+		81 |       type     = "ssh"
+		82 |       user     = "ubuntu"
+		83 |       private_key = "${file("ssh/id_rsa")}"
+		84 |     }
+		85 |   }
+		86 |   provisioner "local-exec" {
+		87 |     command = "env ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -vvvv -T 60 -i \"${self.public_dns},\" ../ansible/playbook.yml -u ubuntu --private-key=ssh/id_rsa --extra-vars '{\"appl_cidrs\":[\"${aws_subnet.aws_subnet1.cidr_block}\",\"${aws_subnet.aws_subnet2.cidr_block}\"]}' --extra-vars env=prod --extra-vars dbhost=${aws_db_instance.aws_db_instance.endpoint}"
+		88 |   }
+		89 | }
+
+Check: CKV_AWS_88: "EC2 instance should not have public IP."
+	FAILED for resource: aws_instance.aws_instance
+	File: /main.tf:62-89
+
+		62 | resource "aws_instance" "aws_instance" {
+		63 |     depends_on = ["aws_db_instance.aws_db_instance"]
+		64 |     subnet_id     = "${aws_subnet.aws_subnet1.id}"
+		65 |   ami           = "ami-2f442839"
+		66 |   instance_type = "t2.micro"
+		67 |   associate_public_ip_address = true
+		68 |   vpc_security_group_ids = ["${aws_security_group.aws_security_group.id}"]
+		69 |   key_name ="${aws_key_pair.aws_key_pair.id}"
+		70 |   provisioner "remote-exec" {
+		71 |     inline = [
+		72 |       "sudo apt-get -y install postgresql postgresql-contrib",
+		73 |       "echo \"${element(split(":", aws_db_instance.aws_db_instance.endpoint), 0)}:${element(split(":", aws_db_instance.aws_db_instance.endpoint), 1)}:appdatabase:DBUSER:DBPASSWORD\" >> /home/ubuntu/.pgpass",
+		74 |       "chmod 600 /home/ubuntu/.pgpass",
+		75 |       "psql -h ${element(split(":", aws_db_instance.aws_db_instance.endpoint), 0)} -p ${element(split(":", aws_db_instance.aws_db_instance.endpoint), 1)} -U DBUSER -d appdatabase -c \"CREATE TABLE app (data VARCHAR(50));\"",
+		76 |       "psql -h ${element(split(":", aws_db_instance.aws_db_instance.endpoint), 0)} -p ${element(split(":", aws_db_instance.aws_db_instance.endpoint), 1)} -U DBUSER -d appdatabase -c \"INSERT INTO app (data) VALUES ('CHANGEME');\"",
+		77 |       "(echo audit && echo audit) | sudo passwd", # Allow auditors
+		78 |     ]
+		79 | 
+		80 |     connection {
+		81 |       type     = "ssh"
+		82 |       user     = "ubuntu"
+		83 |       private_key = "${file("ssh/id_rsa")}"
+		84 |     }
+		85 |   }
+		86 |   provisioner "local-exec" {
+		87 |     command = "env ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -vvvv -T 60 -i \"${self.public_dns},\" ../ansible/playbook.yml -u ubuntu --private-key=ssh/id_rsa --extra-vars '{\"appl_cidrs\":[\"${aws_subnet.aws_subnet1.cidr_block}\",\"${aws_subnet.aws_subnet2.cidr_block}\"]}' --extra-vars env=prod --extra-vars dbhost=${aws_db_instance.aws_db_instance.endpoint}"
+		88 |   }
+		89 | }
+
+Check: CKV_AWS_126: "Ensure that detailed monitoring is enabled for EC2 instances"
+	FAILED for resource: aws_instance.aws_instance
+	File: /main.tf:62-89
+
+		62 | resource "aws_instance" "aws_instance" {
+		63 |     depends_on = ["aws_db_instance.aws_db_instance"]
+		64 |     subnet_id     = "${aws_subnet.aws_subnet1.id}"
+		65 |   ami           = "ami-2f442839"
+		66 |   instance_type = "t2.micro"
+		67 |   associate_public_ip_address = true
+		68 |   vpc_security_group_ids = ["${aws_security_group.aws_security_group.id}"]
+		69 |   key_name ="${aws_key_pair.aws_key_pair.id}"
+		70 |   provisioner "remote-exec" {
+		71 |     inline = [
+		72 |       "sudo apt-get -y install postgresql postgresql-contrib",
+		73 |       "echo \"${element(split(":", aws_db_instance.aws_db_instance.endpoint), 0)}:${element(split(":", aws_db_instance.aws_db_instance.endpoint), 1)}:appdatabase:DBUSER:DBPASSWORD\" >> /home/ubuntu/.pgpass",
+		74 |       "chmod 600 /home/ubuntu/.pgpass",
+		75 |       "psql -h ${element(split(":", aws_db_instance.aws_db_instance.endpoint), 0)} -p ${element(split(":", aws_db_instance.aws_db_instance.endpoint), 1)} -U DBUSER -d appdatabase -c \"CREATE TABLE app (data VARCHAR(50));\"",
+		76 |       "psql -h ${element(split(":", aws_db_instance.aws_db_instance.endpoint), 0)} -p ${element(split(":", aws_db_instance.aws_db_instance.endpoint), 1)} -U DBUSER -d appdatabase -c \"INSERT INTO app (data) VALUES ('CHANGEME');\"",
+		77 |       "(echo audit && echo audit) | sudo passwd", # Allow auditors
+		78 |     ]
+		79 | 
+		80 |     connection {
+		81 |       type     = "ssh"
+		82 |       user     = "ubuntu"
+		83 |       private_key = "${file("ssh/id_rsa")}"
+		84 |     }
+		85 |   }
+		86 |   provisioner "local-exec" {
+		87 |     command = "env ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -vvvv -T 60 -i \"${self.public_dns},\" ../ansible/playbook.yml -u ubuntu --private-key=ssh/id_rsa --extra-vars '{\"appl_cidrs\":[\"${aws_subnet.aws_subnet1.cidr_block}\",\"${aws_subnet.aws_subnet2.cidr_block}\"]}' --extra-vars env=prod --extra-vars dbhost=${aws_db_instance.aws_db_instance.endpoint}"
+		88 |   }
+		89 | }
+
+Check: CKV_AWS_135: "Ensure that EC2 is EBS optimized"
+	FAILED for resource: aws_instance.aws_instance
+	File: /main.tf:62-89
+
+		62 | resource "aws_instance" "aws_instance" {
+		63 |     depends_on = ["aws_db_instance.aws_db_instance"]
+		64 |     subnet_id     = "${aws_subnet.aws_subnet1.id}"
+		65 |   ami           = "ami-2f442839"
+		66 |   instance_type = "t2.micro"
+		67 |   associate_public_ip_address = true
+		68 |   vpc_security_group_ids = ["${aws_security_group.aws_security_group.id}"]
+		69 |   key_name ="${aws_key_pair.aws_key_pair.id}"
+		70 |   provisioner "remote-exec" {
+		71 |     inline = [
+		72 |       "sudo apt-get -y install postgresql postgresql-contrib",
+		73 |       "echo \"${element(split(":", aws_db_instance.aws_db_instance.endpoint), 0)}:${element(split(":", aws_db_instance.aws_db_instance.endpoint), 1)}:appdatabase:DBUSER:DBPASSWORD\" >> /home/ubuntu/.pgpass",
+		74 |       "chmod 600 /home/ubuntu/.pgpass",
+		75 |       "psql -h ${element(split(":", aws_db_instance.aws_db_instance.endpoint), 0)} -p ${element(split(":", aws_db_instance.aws_db_instance.endpoint), 1)} -U DBUSER -d appdatabase -c \"CREATE TABLE app (data VARCHAR(50));\"",
+		76 |       "psql -h ${element(split(":", aws_db_instance.aws_db_instance.endpoint), 0)} -p ${element(split(":", aws_db_instance.aws_db_instance.endpoint), 1)} -U DBUSER -d appdatabase -c \"INSERT INTO app (data) VALUES ('CHANGEME');\"",
+		77 |       "(echo audit && echo audit) | sudo passwd", # Allow auditors
+		78 |     ]
+		79 | 
+		80 |     connection {
+		81 |       type     = "ssh"
+		82 |       user     = "ubuntu"
+		83 |       private_key = "${file("ssh/id_rsa")}"
+		84 |     }
+		85 |   }
+		86 |   provisioner "local-exec" {
+		87 |     command = "env ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -vvvv -T 60 -i \"${self.public_dns},\" ../ansible/playbook.yml -u ubuntu --private-key=ssh/id_rsa --extra-vars '{\"appl_cidrs\":[\"${aws_subnet.aws_subnet1.cidr_block}\",\"${aws_subnet.aws_subnet2.cidr_block}\"]}' --extra-vars env=prod --extra-vars dbhost=${aws_db_instance.aws_db_instance.endpoint}"
+		88 |   }
+		89 | }
+
+Check: CKV_AWS_8: "Ensure all data stored in the Launch configuration or instance Elastic Blocks Store is securely encrypted"
+	FAILED for resource: aws_instance.aws_instance
+	File: /main.tf:62-89
+
+		62 | resource "aws_instance" "aws_instance" {
+		63 |     depends_on = ["aws_db_instance.aws_db_instance"]
+		64 |     subnet_id     = "${aws_subnet.aws_subnet1.id}"
+		65 |   ami           = "ami-2f442839"
+		66 |   instance_type = "t2.micro"
+		67 |   associate_public_ip_address = true
+		68 |   vpc_security_group_ids = ["${aws_security_group.aws_security_group.id}"]
+		69 |   key_name ="${aws_key_pair.aws_key_pair.id}"
+		70 |   provisioner "remote-exec" {
+		71 |     inline = [
+		72 |       "sudo apt-get -y install postgresql postgresql-contrib",
+		73 |       "echo \"${element(split(":", aws_db_instance.aws_db_instance.endpoint), 0)}:${element(split(":", aws_db_instance.aws_db_instance.endpoint), 1)}:appdatabase:DBUSER:DBPASSWORD\" >> /home/ubuntu/.pgpass",
+		74 |       "chmod 600 /home/ubuntu/.pgpass",
+		75 |       "psql -h ${element(split(":", aws_db_instance.aws_db_instance.endpoint), 0)} -p ${element(split(":", aws_db_instance.aws_db_instance.endpoint), 1)} -U DBUSER -d appdatabase -c \"CREATE TABLE app (data VARCHAR(50));\"",
+		76 |       "psql -h ${element(split(":", aws_db_instance.aws_db_instance.endpoint), 0)} -p ${element(split(":", aws_db_instance.aws_db_instance.endpoint), 1)} -U DBUSER -d appdatabase -c \"INSERT INTO app (data) VALUES ('CHANGEME');\"",
+		77 |       "(echo audit && echo audit) | sudo passwd", # Allow auditors
+		78 |     ]
+		79 | 
+		80 |     connection {
+		81 |       type     = "ssh"
+		82 |       user     = "ubuntu"
+		83 |       private_key = "${file("ssh/id_rsa")}"
+		84 |     }
+		85 |   }
+		86 |   provisioner "local-exec" {
+		87 |     command = "env ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -vvvv -T 60 -i \"${self.public_dns},\" ../ansible/playbook.yml -u ubuntu --private-key=ssh/id_rsa --extra-vars '{\"appl_cidrs\":[\"${aws_subnet.aws_subnet1.cidr_block}\",\"${aws_subnet.aws_subnet2.cidr_block}\"]}' --extra-vars env=prod --extra-vars dbhost=${aws_db_instance.aws_db_instance.endpoint}"
+		88 |   }
+		89 | }
+
+Check: CKV_AWS_250: "Ensure that RDS PostgreSQL instances use a non vulnerable version with the log_fdw extension (https://aws.amazon.com/security/security-bulletins/AWS-2022-004/)"
+	FAILED for resource: aws_db_instance.aws_db_instance
+	File: /main.tf:96-109
+
+		96  | resource "aws_db_instance" "aws_db_instance" {
+		97  |   allocated_storage    = 10
+		98  |   storage_type         = "gp2"
+		99  |   engine               = "postgres"
+		100 |   engine_version       = "9.4.14"
+		101 |   instance_class       = "db.t2.micro"
+		102 |   name                 = "appdatabase"
+		103 |   username             = "DBUSER"
+		104 |   password             = "DBPASSWORD"
+		105 |   db_subnet_group_name = "${aws_db_subnet_group.aws_db_subnet_group.id}"
+		106 |   publicly_accessible = true
+		107 |   vpc_security_group_ids = ["${aws_security_group.aws_security_group.id}"]
+		108 |   skip_final_snapshot = true
+		109 | }
+
+Check: CKV_AWS_161: "Ensure RDS database has IAM authentication enabled"
+	FAILED for resource: aws_db_instance.aws_db_instance
+	File: /main.tf:96-109
+
+		96  | resource "aws_db_instance" "aws_db_instance" {
+		97  |   allocated_storage    = 10
+		98  |   storage_type         = "gp2"
+		99  |   engine               = "postgres"
+		100 |   engine_version       = "9.4.14"
+		101 |   instance_class       = "db.t2.micro"
+		102 |   name                 = "appdatabase"
+		103 |   username             = "DBUSER"
+		104 |   password             = "DBPASSWORD"
+		105 |   db_subnet_group_name = "${aws_db_subnet_group.aws_db_subnet_group.id}"
+		106 |   publicly_accessible = true
+		107 |   vpc_security_group_ids = ["${aws_security_group.aws_security_group.id}"]
+		108 |   skip_final_snapshot = true
+		109 | }
+
+Check: CKV_AWS_157: "Ensure that RDS instances have Multi-AZ enabled"
+	FAILED for resource: aws_db_instance.aws_db_instance
+	File: /main.tf:96-109
+
+		96  | resource "aws_db_instance" "aws_db_instance" {
+		97  |   allocated_storage    = 10
+		98  |   storage_type         = "gp2"
+		99  |   engine               = "postgres"
+		100 |   engine_version       = "9.4.14"
+		101 |   instance_class       = "db.t2.micro"
+		102 |   name                 = "appdatabase"
+		103 |   username             = "DBUSER"
+		104 |   password             = "DBPASSWORD"
+		105 |   db_subnet_group_name = "${aws_db_subnet_group.aws_db_subnet_group.id}"
+		106 |   publicly_accessible = true
+		107 |   vpc_security_group_ids = ["${aws_security_group.aws_security_group.id}"]
+		108 |   skip_final_snapshot = true
+		109 | }
+
+Check: CKV_AWS_129: "Ensure that respective logs of Amazon Relational Database Service (Amazon RDS) are enabled"
+	FAILED for resource: aws_db_instance.aws_db_instance
+	File: /main.tf:96-109
+
+		96  | resource "aws_db_instance" "aws_db_instance" {
+		97  |   allocated_storage    = 10
+		98  |   storage_type         = "gp2"
+		99  |   engine               = "postgres"
+		100 |   engine_version       = "9.4.14"
+		101 |   instance_class       = "db.t2.micro"
+		102 |   name                 = "appdatabase"
+		103 |   username             = "DBUSER"
+		104 |   password             = "DBPASSWORD"
+		105 |   db_subnet_group_name = "${aws_db_subnet_group.aws_db_subnet_group.id}"
+		106 |   publicly_accessible = true
+		107 |   vpc_security_group_ids = ["${aws_security_group.aws_security_group.id}"]
+		108 |   skip_final_snapshot = true
+		109 | }
+
+Check: CKV_AWS_226: "Ensure DB instance gets all minor upgrades automatically"
+	FAILED for resource: aws_db_instance.aws_db_instance
+	File: /main.tf:96-109
+
+		96  | resource "aws_db_instance" "aws_db_instance" {
+		97  |   allocated_storage    = 10
+		98  |   storage_type         = "gp2"
+		99  |   engine               = "postgres"
+		100 |   engine_version       = "9.4.14"
+		101 |   instance_class       = "db.t2.micro"
+		102 |   name                 = "appdatabase"
+		103 |   username             = "DBUSER"
+		104 |   password             = "DBPASSWORD"
+		105 |   db_subnet_group_name = "${aws_db_subnet_group.aws_db_subnet_group.id}"
+		106 |   publicly_accessible = true
+		107 |   vpc_security_group_ids = ["${aws_security_group.aws_security_group.id}"]
+		108 |   skip_final_snapshot = true
+		109 | }
+
+Check: CKV_AWS_17: "Ensure all data stored in RDS is not publicly accessible"
+	FAILED for resource: aws_db_instance.aws_db_instance
+	File: /main.tf:96-109
+
+		96  | resource "aws_db_instance" "aws_db_instance" {
+		97  |   allocated_storage    = 10
+		98  |   storage_type         = "gp2"
+		99  |   engine               = "postgres"
+		100 |   engine_version       = "9.4.14"
+		101 |   instance_class       = "db.t2.micro"
+		102 |   name                 = "appdatabase"
+		103 |   username             = "DBUSER"
+		104 |   password             = "DBPASSWORD"
+		105 |   db_subnet_group_name = "${aws_db_subnet_group.aws_db_subnet_group.id}"
+		106 |   publicly_accessible = true
+		107 |   vpc_security_group_ids = ["${aws_security_group.aws_security_group.id}"]
+		108 |   skip_final_snapshot = true
+		109 | }
+
+Check: CKV_AWS_118: "Ensure that enhanced monitoring is enabled for Amazon RDS instances"
+	FAILED for resource: aws_db_instance.aws_db_instance
+	File: /main.tf:96-109
+
+		96  | resource "aws_db_instance" "aws_db_instance" {
+		97  |   allocated_storage    = 10
+		98  |   storage_type         = "gp2"
+		99  |   engine               = "postgres"
+		100 |   engine_version       = "9.4.14"
+		101 |   instance_class       = "db.t2.micro"
+		102 |   name                 = "appdatabase"
+		103 |   username             = "DBUSER"
+		104 |   password             = "DBPASSWORD"
+		105 |   db_subnet_group_name = "${aws_db_subnet_group.aws_db_subnet_group.id}"
+		106 |   publicly_accessible = true
+		107 |   vpc_security_group_ids = ["${aws_security_group.aws_security_group.id}"]
+		108 |   skip_final_snapshot = true
+		109 | }
+
+Check: CKV_AWS_16: "Ensure all data stored in the RDS is securely encrypted at rest"
+	FAILED for resource: aws_db_instance.aws_db_instance
+	File: /main.tf:96-109
+
+		96  | resource "aws_db_instance" "aws_db_instance" {
+		97  |   allocated_storage    = 10
+		98  |   storage_type         = "gp2"
+		99  |   engine               = "postgres"
+		100 |   engine_version       = "9.4.14"
+		101 |   instance_class       = "db.t2.micro"
+		102 |   name                 = "appdatabase"
+		103 |   username             = "DBUSER"
+		104 |   password             = "DBPASSWORD"
+		105 |   db_subnet_group_name = "${aws_db_subnet_group.aws_db_subnet_group.id}"
+		106 |   publicly_accessible = true
+		107 |   vpc_security_group_ids = ["${aws_security_group.aws_security_group.id}"]
+		108 |   skip_final_snapshot = true
+		109 | }
+
+Check: CKV2_AWS_12: "Ensure the default security group of every VPC restricts all traffic"
+	FAILED for resource: aws_vpc.aws_vpc
+	File: /main.tf:9-12
+
+		9  | resource "aws_vpc" "aws_vpc" {
+		10 |     cidr_block = "10.0.0.0/16"
+		11 |     enable_dns_hostnames = true
+		12 | }
+
+Check: CKV2_AWS_11: "Ensure VPC flow logging is enabled in all VPCs"
+	FAILED for resource: aws_vpc.aws_vpc
+	File: /main.tf:9-12
+
+		9  | resource "aws_vpc" "aws_vpc" {
+		10 |     cidr_block = "10.0.0.0/16"
+		11 |     enable_dns_hostnames = true
+		12 | }
+
+Check: CKV2_AWS_30: "Ensure Postgres RDS as aws_db_instance has Query Logging enabled"
+	FAILED for resource: aws_db_instance.aws_db_instance
+	File: /main.tf:96-109
+
+		96  | resource "aws_db_instance" "aws_db_instance" {
+		97  |   allocated_storage    = 10
+		98  |   storage_type         = "gp2"
+		99  |   engine               = "postgres"
+		100 |   engine_version       = "9.4.14"
+		101 |   instance_class       = "db.t2.micro"
+		102 |   name                 = "appdatabase"
+		103 |   username             = "DBUSER"
+		104 |   password             = "DBPASSWORD"
+		105 |   db_subnet_group_name = "${aws_db_subnet_group.aws_db_subnet_group.id}"
+		106 |   publicly_accessible = true
+		107 |   vpc_security_group_ids = ["${aws_security_group.aws_security_group.id}"]
+		108 |   skip_final_snapshot = true
+		109 | }
+
+
